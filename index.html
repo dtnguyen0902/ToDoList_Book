@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quản lý Sách</title>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- Bootstrap 4 -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+	<!-- JQuery UI -->
+	<link rel="stylesheet" href="css/jquery-ui.min.css">
+
+	<!-- Animate -->
+	<!-- <link rel="stylesheet" href="css/animate.css"> -->
+
+	<!-- My CSS -->
+	<link rel="stylesheet" href="css/modal.css">
+
+	<link rel="stylesheet" href="css/style4.css">
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<!-- Sidebar Holder -->
+		<nav id="sidebar">
+			<div class="sidebar-header">
+				<h3>Nhà Sách Bod Lee</h3>
+				<strong>BL</strong>
+			</div>
+
+			<ul class="list-unstyled components">
+				<li class="active">
+					<a href="#homeSubmenu">
+						<i class="fa fa-home"></i>
+						Kho Sách
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-briefcase"></i>
+						Sách Mới
+					</a>
+					<a href="#pageSubmenu">
+						<i class="fa fa-files-o"></i>
+						Sách Cũ
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-link"></i>
+						Sách Programming
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-paperclip"></i>
+						Sách Kỹ Năng Sống
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="fa fa-paper-plane"></i>
+						Sách Tiểu Thuyết
+					</a>
+				</li>
+			</ul>
+
+			<ul class="list-unstyled CTAs">
+				<li><a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+				</li>
+				<li><a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a></li>
+			</ul>
+		</nav>
+
+		<!-- Page Content Holder -->
+		<div id="content">
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+
+					<div class="navbar-header">
+						<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+							<i class="glyphicon glyphicon-align-left"></i>
+							<span>Toggle Sidebar</span>
+						</button>
+					</div>
+
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#">Page</a></li>
+							<li><a href="#">Page</a></li>
+							<li><a href="#">Page</a></li>
+							<li><a href="#">Page</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+
+			<div class="container">
+				<div class="card text-center">
+					<!-- Header -->
+					<div class="card-header myCardHeader">
+						<div class="row">
+							<div class="col-md-6">
+								<h3 class="text-left text-primary font-weight-bold">Thư Viện</h3>
+							</div>
+							<div class="col-md-6 text-right">
+								<button class="btn btn-primary" id="btnThem" data-toggle="modal"
+									data-target="#myModal">Thêm Sách</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Body -->
+					<div class="card-body">
+						<div class="row mb-3">
+							<div class="col">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Tên sách" id="searchName">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="btnTimNV"><i class="fa fa-search"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<table class="table table-bordered table-hover myTable">
+							<thead class="text-primary">
+								<tr>
+									<th class="nowrap">
+										<span class="mr-1">Mã sách</span>
+									</th>
+									<th>Tên sách</th>
+									<th>Loại sách</th>
+									<th>Nhà Xuất Bản</th>
+									<th>Tình Trạng</th>
+									<th>Số lượng</th>
+									<th>Đơn giá</th>
+									<th><em class="fa fa-cog"></em></th>
+								</tr>
+							</thead>
+							<tbody id="tableDanhSach">
+
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Footer -->
+					<div class="card-footer myCardFooter">
+						<nav>
+							<ul class="pagination justify-content-center" id="ulPhanTrang">
+
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- The Modal -->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<header class="head-form mb-0">
+					<h2 id="header-title">Thông tin sách</h2>
+				</header>
+
+				<!-- Modal Header -->
+				<!-- 	<div class="modal-header">
+					<h4 class="modal-title" id="modal-title">Modal Heading</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div> -->
+
+				<!-- Modal body -->
+				<div class="modal-body">
+
+					<form role="form">
+
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-user"></i></span>
+								</div>
+								<input type="number" name="ms" id="ms" class="form-control input-sm"
+									placeholder="Mã sách">
+							</div>
+
+							<span class="sp-thongbao" id="tbMaSach"></span>
+						</div>
+
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-address-book"></i></span>
+								</div>
+								<input type="name" name="name" id="name" class="form-control input-sm"
+									placeholder="Tên sách">
+							</div>
+							<span class="sp-thongbao" id="tbTen"></span>
+						</div>
+
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-briefcase"></i></span>
+								</div>
+								<select class="form-control" id="loaisach">
+									<option>Chọn loại sách</option>
+									<option>Sách Programming</option>
+									<option>Sách Kỹ năng sống</option>
+									<option>Sách Tiểu Thuyết</option>
+								</select>
+							</div>
+
+							<span class="sp-thongbao" id="tbLoaiSach"></span>
+						</div>
+
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-envelope"></i></span>
+								</div>
+								<input type="text" name="nxb" id="nxb" class="form-control input-sm"
+									placeholder="Nhà xuất bản">
+							</div>
+
+							<span class="sp-thongbao" id="tbNXB"></span>
+						</div>
+
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-briefcase"></i></span>
+								</div>
+								<select class="form-control" id="tinhtrang">
+									<option>Tình trạng</option>
+									<option>Mới</option>
+									<option>Cũ</option>
+								</select>
+							</div>
+							<span class="sp-thongbao" id="tbTinhTrang"></span>
+						</div>
+
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-envelope"></i></span>
+								</div>
+								<input type="text" name="soluong" id="soluong" class="form-control input-sm"
+									placeholder="Số lượng">
+							</div>
+
+							<span class="sp-thongbao" id="tbSoLuong"></span>
+						</div>
+
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-envelope"></i></span>
+								</div>
+								<input type="text" name="dongia" id="dongia" class="form-control input-sm"
+									placeholder="Đơn giá">
+							</div>
+
+							<span class="sp-thongbao" id="tbDonGia"></span>
+						</div>
+
+
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer" id="modal-footer">
+					<button id="btnThemSach" type="button" class="btn btn-success">Thêm Sách</button>
+					<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
+					<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap -->
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script src="./js/jquery.storageapi.min.js"></script>
+
+	<!-- Date Picker -->
+	<!-- <script src="js/jquery-ui.min.js"></script> -->
+
+	<script src="./app/models/ThuVien.js"></script>
+	<script src="./app/models/Sach.js"></script>
+	<script src="./app/models/Vadition.js"></script>
+	<script src="./app/controller/main.js"></script>
+	<!-- Wow -->
+	<!-- <script src="js/wow.min.js"></script>	
+	<script>
+		new WOW().init();
+	</script>  -->
+
+	<!-- <script src="js/modal.js"></script> -->
+
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#sidebarCollapse').on('click', function () {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+	</script>
+</body>
+
+</html>

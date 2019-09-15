@@ -1,0 +1,24 @@
+.sp-thongbao {
+  color: red;
+  margin-left: 2px; 
+  display: none;
+}
+
+#SapXepGiam{
+	display: none;
+}
+
+#content{
+	width: 100%;
+	background: #43C6AC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #43C6AC, #F8FFAE);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #43C6AC, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+#content .card{
+  background: linear-gradient(to right, #43C6AC, #A1FFCE);
+}
+
+.myCardHeader, .myCardFooter{
+	background-color: transparent;       
+}
