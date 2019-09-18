@@ -1,61 +1,85 @@
 $(document).ready(function () {
     var KhoSach = new ThuVien();
     var validation = new Validation();
+    isCheck = true;
     getLocal();
     $('#btnThem').click(function () {
         $('#btnThemSach').show();
         $('#btnKiemTra').show();
         $('#btnCapNhat').hide();
 
-        $('input').focusout(function () {
+        $('#ms').focusout(function () {
             var maSach = $('#ms').val();
-            var tenSach = $('#name').val();
-            var loaiSach = $('#loaisach').children("option:selected").val();
-            var NXB = $('#nxb').val();
-            var tinhTrang = $('#tinhtrang').val();
-            var soLuong = $('#soluong').val();
-            var donGia = $('#dongia').val();
-
-            isCheck = true;
             //Kiểm tra rỗng mã sách
-            isCheck &= validation.kiemTraRong(maSach, "#tbMaSach", "(*) Vui lòng nhập Mã Sách") && validation.kiemTraTrung(KhoSach, maSach, '#tbMaSach',"(*) Mã đã bị trùng");
-
+            isCheck &= validation.kiemTraRong(maSach, "#tbMaSach", "(*) Vui lòng nhập Mã Sách") && validation.kiemTraTrung(KhoSach, maSach, '#tbMaSach', "(*) Mã đã bị trùng");
+        })
+        $('#name').focusout(function () {
+            var tenSach = $('#name').val();
             //Kiểm tra rỗng tên sách
             isCheck &= validation.kiemTraRong(tenSach, "#tbTen", "(*) Vui lòng nhập Tên Sách");
-
+        })
+        $('#loaisach').focusout(function () {
+            var loaiSach = $('#loaisach').children("option:selected").val();
             //Kiểm tra rỗng loại sách
-            isCheck &= validation.kiemTraRongOption(loaiSach,"Chọn loại sách", "#tbLoaiSach", "(*) Vui lòng nhập Loại Sách");
-
+            isCheck &= validation.kiemTraRongOption(loaiSach, "Chọn loại sách", "#tbLoaiSach", "(*) Vui lòng nhập Loại Sách");
+        })
+        $('#nxb').focusout(function () {
+            var NXB = $('#nxb').val();
             //Kiểm tra rỗng nhà xuất bản
             isCheck &= validation.kiemTraRong(NXB, "#tbNXB", "(*) Vui lòng nhập Nhà Xuất Bản");
-
+        })
+        $('#tinhtrang').focusout(function () {
+            var tinhTrang = $('#tinhtrang').val();
             //Kiểm tra rỗng tình trạng
-            isCheck &= validation.kiemTraRongOption(tinhTrang,"Tình trạng", "#tbTinhTrang", "(*) Vui lòng nhập Tình Trạng Sách");
-
+            isCheck &= validation.kiemTraRongOption(tinhTrang, "Tình trạng", "#tbTinhTrang", "(*) Vui lòng nhập Tình Trạng Sách");
+        })
+        $('#soluong').focusout(function () {
+            var soLuong = $('#soluong').val();
             //Kiểm tra rỗng số lượng
             isCheck &= validation.kiemTraRong(soLuong, "#tbSoLuong", "(*) Vui lòng nhập Số lượng Sách");
-
+        })
+        $('#dongia').focusout(function () {
+            var donGia = $('#dongia').val();
             //Kiểm tra rỗng đơn giá
             isCheck &= validation.kiemTraRong(donGia, "#tbDonGia", "(*) Vui lòng nhập Đơn giá Sách");
         })
-        $('body').delegate('#btnThemSach', 'click', function () {
-            var maSach = $('#ms').val();
+        if (!isCheck) {
+            $('body').delegate('#btnThemSach', 'click', function () {
+                var maSach = $('#ms').val();
+                var tenSach = $('#name').val();
+                var loaiSach = $('#loaisach').val();
+                var NXB = $('#nxb').val();
+                var tinhTrang = $('#tinhtrang').val();
+                var soLuong = $('#soluong').val();
+                var donGia = $('#dongia').val();
+
+
+                var newsach = new Sach(maSach, tenSach, loaiSach, NXB, tinhTrang, soLuong, donGia);
+
+                //Thêm sách
+                KhoSach.themSach(newsach);
+                table();
+                setLocal();
+            })
+        } else {
+            $('#btnThemSach').click(function(){
+                var maSach = $('#ms').val();
             var tenSach = $('#name').val();
             var loaiSach = $('#loaisach').val();
             var NXB = $('#nxb').val();
             var tinhTrang = $('#tinhtrang').val();
             var soLuong = $('#soluong').val();
             var donGia = $('#dongia').val();
+            isCheck &= validation.kiemTraRong(maSach, "#tbMaSach", "(*) Vui lòng nhập Mã Sách") && validation.kiemTraTrung(KhoSach, maSach, '#tbMaSach', "(*) Mã đã bị trùng");
+            isCheck &= validation.kiemTraRong(tenSach, "#tbTen", "(*) Vui lòng nhập Tên Sách");
+            isCheck &= validation.kiemTraRongOption(loaiSach, "Chọn loại sách", "#tbLoaiSach", "(*) Vui lòng nhập Loại Sách");
+            isCheck &= validation.kiemTraRong(NXB, "#tbNXB", "(*) Vui lòng nhập Nhà Xuất Bản");
+            isCheck &= validation.kiemTraRongOption(tinhTrang, "Tình trạng", "#tbTinhTrang", "(*) Vui lòng nhập Tình Trạng Sách");
+            isCheck &= validation.kiemTraRong(soLuong, "#tbSoLuong", "(*) Vui lòng nhập Số lượng Sách");
+            isCheck &= validation.kiemTraRong(donGia, "#tbDonGia", "(*) Vui lòng nhập Đơn giá Sách");
+            })
+        }
 
-
-            var newsach = new Sach(maSach, tenSach, loaiSach, NXB, tinhTrang, soLuong, donGia);
-
-
-            //Thêm sách
-            KhoSach.themSach(newsach);
-            table();
-            setLocal();
-        })
     });
 
     //Xóa sách
